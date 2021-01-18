@@ -10,7 +10,13 @@ const handleHome = (req, res) => res.send("hello from home");
 
 const handleProfile = (req, res) => res.send("You are on my profile");  // arrow function
 
-app.get("/", handleHome);
+const betweenHome = (req, res, next) => {
+    console.log("I'm between");
+    next();
+}
+
+app.use(betweenHome);   // globally
+app.get("/", betweenHome, handleHome);
 app.get("/profile", handleProfile);
 
 app.listen(5000, handleListening);
